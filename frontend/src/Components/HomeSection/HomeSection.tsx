@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import ImageIcon from "@mui/icons-material/Image";
 import { useState } from "react";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
+import TweetCard from "./TweetCard";
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Tweet text is required"),
 });
@@ -90,6 +91,9 @@ export default function HomeSection() {
             </form>
           </div>
         </div>
+      </section>
+      <section>
+        <TweetCard />
       </section>
     </div>
   );
