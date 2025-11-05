@@ -20,6 +20,7 @@
 import { Grid } from "@mui/material";
 import Navigation from "../Navigation/Navigation";
 import HomeSection from "../HomeSection/HomeSection";
+import RightPart from "../RightPart/RightPart";
 
 export default function HomePage() {
   return (
@@ -30,15 +31,18 @@ export default function HomePage() {
       </Grid>
 
       {/* Middle Part */}
-      <Grid item xs={12} lg={6} className="hidden lg:block relative">
-        <p className="text-center">
-          <HomeSection />
-        </p>
+      <Grid
+        item
+        xs={12}
+        lg={6}
+        className=" px-5 lg:px-9 hidden lg:block relative"
+      >
+        <HomeSection />
       </Grid>
 
       {/* Right Part */}
       <Grid item xs={12} lg={3} className="hidden lg:block relative">
-        <p className="text-center">Right Part</p>
+        <RightPart />
       </Grid>
     </Grid>
   );
