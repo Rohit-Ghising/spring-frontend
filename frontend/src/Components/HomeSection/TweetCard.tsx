@@ -24,8 +24,16 @@ export default function TweetCard() {
     console.log("tweetseleted");
     handleClose();
   };
-  const handleReplyModel = () => {};
+  const handleCreateRetweet = () => {
+    console.log("handle create retweet");
+  };
+  const handleReplyModel = () => {
+    "repliesd";
+  };
   const navigate = useNavigate();
+  const handleLiketweet = () => {
+    console.log("liked");
+  };
   return (
     <div className="">
       {/* <div className="flex items-center font-semibold text-gray-700 py-2">
@@ -94,7 +102,43 @@ export default function TweetCard() {
                     true ? "text-pink-600 " : "text-gray-600"
                   } space-x-3 flex items-center `}
                 >
-                  <RepeatIcon className="cursor-pointer" />
+                  <RepeatIcon
+                    className="cursor-pointer"
+                    onClick={handleCreateRetweet}
+                  />
+                  <p>54</p>
+                </div>
+                {/*  */}
+                <div
+                  className={`${
+                    true ? "text-pink-600 " : "text-gray-600"
+                  } space-x-3 flex items-center `}
+                >
+                  {true ? (
+                    <FavoriteIcon
+                      className="cursor-pointer"
+                      onClick={handleLiketweet}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon
+                      className="cursor-pointer "
+                      onClick={handleLiketweet}
+                    />
+                  )}
+                  <p>54</p>
+                </div>
+                <div className="space-x-3 flex items-center text-gray-600">
+                  <BarChartIcon
+                    className="cursor-pointer "
+                    onClick={handleReplyModel}
+                  />
+                  <p>43</p>
+                </div>
+                <div className="space-x-3 flex items-center text-gray-600">
+                  <FileUploadIcon
+                    className="cursor-pointer "
+                    onClick={handleReplyModel}
+                  />
                 </div>
               </div>
             </div>
