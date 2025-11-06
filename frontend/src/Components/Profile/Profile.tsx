@@ -13,11 +13,10 @@ import ProfileModal from "./ProfileModal";
 
 export default function Profile() {
   const [tabValue, setTabValue] = useState("1");
+  const [openProfileModal, setOpenProfileModal] = useState(false);
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
-  const handleOpenProfileModel = () => {
-    console.log("openprfile");
-  };
+
   const handleFollowUser = () => {
     console.log("followed");
   };
@@ -29,6 +28,8 @@ export default function Profile() {
       console.log("user tweet");
     }
   };
+  const handleOpenProfileModel = () => setOpenProfileModal(true);
+  const handleClose = () => setOpenProfileModal(false);
   return (
     <div>
       <section
@@ -139,7 +140,7 @@ export default function Profile() {
         </Box>
       </section>
       <section>
-        <ProfileModal />
+        <ProfileModal handleClose={handleClose} open={openProfileModal} />
       </section>
     </div>
   );

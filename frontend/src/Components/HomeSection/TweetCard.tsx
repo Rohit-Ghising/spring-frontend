@@ -8,6 +8,8 @@ import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import ReplyModal from "./ReplyModal";
+
 export default function TweetCard() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -17,9 +19,9 @@ export default function TweetCard() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
-    handleClose();
-  };
+  // const handleLogout = () => {
+  //   handleClose();
+  // };
   const handleDeleteTweet = () => {
     console.log("tweetseleted");
     handleClose();
@@ -35,7 +37,7 @@ export default function TweetCard() {
     console.log("liked");
   };
   return (
-    <div className="">
+    <>
       {/* <div className="flex items-center font-semibold text-gray-700 py-2">
         <RepeatIcon />
         <p>You Retweet</p>
@@ -148,6 +150,9 @@ export default function TweetCard() {
           </div>
         </div>
       </div>
-    </div>
+      <section>
+        <ReplyModal />
+      </section>
+    </>
   );
 }

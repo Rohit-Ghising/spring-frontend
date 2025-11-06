@@ -21,11 +21,9 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ProfileModal() {
-  const [open, setOpen] = React.useState(false);
+export default function ProfileModal({ open, handleClose }) {
+  // const [open, setOpen] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const handleSubmit = (values) => {
     console.log("handlesubmit", values);
   };
@@ -51,9 +49,8 @@ export default function ProfileModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={true}
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -73,7 +70,7 @@ export default function ProfileModal() {
               </div>
               <Button type="submit">Save</Button>
             </div>
-            <div className="overflow-y-scroll overflow-x-hidden h-[80vh]">
+            <div className=" hideScrollBar overflow-y-scroll  overflow-x-hidden h-[80vh]">
               <React.Fragment>
                 <div className="w-full ">
                   <div className="relative ">
