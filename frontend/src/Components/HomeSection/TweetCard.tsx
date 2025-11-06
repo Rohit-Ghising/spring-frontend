@@ -82,7 +82,10 @@ export default function TweetCard() {
             </div>
           </div>
           <div className="mt-2 ">
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => navigate(`/tweet/${8}`)}
+            >
               <p className="mb-2 p-0">Nice image</p>
               <img
                 src="https://images.unsplash.com/photo-1761839262867-af53d08b0eb5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&q=60&w=600"

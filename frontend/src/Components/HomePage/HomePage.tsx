@@ -23,6 +23,7 @@ import HomeSection from "../HomeSection/HomeSection";
 import RightPart from "../RightPart/RightPart";
 import { Route, Routes } from "react-router-dom";
 import Profile from "../Profile/Profile";
+import TweetDetails from "../TweetDetails/TweetDetails";
 
 export default function HomePage() {
   return (
@@ -41,7 +42,10 @@ export default function HomePage() {
       >
         <Routes>
           <Route path="/" element={<HomeSection />}></Route>
+          <Route path="/home" element={<HomeSection />}></Route>
+
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="tweet/:id" element={<TweetDetails />} />
         </Routes>
       </Grid>
 
