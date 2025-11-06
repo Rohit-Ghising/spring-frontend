@@ -6,11 +6,14 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReplyModal from "./ReplyModal";
 
 export default function TweetCard() {
+  const [openReplyModal, setOpenReplyModal] = useState(false);
+  const handleOpenReplyModel = () => setOpenReplyModal(true);
+  const handleCloseReplyModal = () => setOpenReplyModal(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -24,7 +27,6 @@ export default function TweetCard() {
   // };
   const handleDeleteTweet = () => {
     console.log("tweetseleted");
-    handleClose();
   };
   const handleCreateRetweet = () => {
     console.log("handle create retweet");
@@ -99,7 +101,7 @@ export default function TweetCard() {
               <div className="space-x-3 flex items-center text-gray-600">
                 <ChatBubbleOutlineIcon
                   className="cursor-pointer "
-                  onClick={handleReplyModel}
+                  onClick={handleOpenReplyModel}
                 />
                 <p>43</p>
                 <div
@@ -151,7 +153,7 @@ export default function TweetCard() {
         </div>
       </div>
       <section>
-        <ReplyModal />
+        <ReplyModal open={openReplyModal} handleClose={handleCloseReplyModal} />
       </section>
     </>
   );

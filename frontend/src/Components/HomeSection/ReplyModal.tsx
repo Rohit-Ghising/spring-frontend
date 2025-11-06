@@ -27,12 +27,12 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ReplyModal() {
+export default function ReplyModal({ open, handleClose }) {
   const [uploadingImage, setUploadingImage] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+
   const handleClick = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
   const handleDeleteTweet = () => {};
   const handleSubmit = (values) => {
@@ -54,7 +54,7 @@ export default function ReplyModal() {
   return (
     <div>
       <Modal
-        open={true}
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
