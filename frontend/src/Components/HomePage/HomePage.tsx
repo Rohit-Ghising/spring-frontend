@@ -21,6 +21,8 @@ import { Grid } from "@mui/material";
 import Navigation from "../Navigation/Navigation";
 import HomeSection from "../HomeSection/HomeSection";
 import RightPart from "../RightPart/RightPart";
+import { Route, Routes } from "react-router-dom";
+import Profile from "../Profile/Profile";
 
 export default function HomePage() {
   return (
@@ -37,7 +39,10 @@ export default function HomePage() {
         lg={6}
         className=" px-5 lg:px-9 hidden lg:block relative"
       >
-        <HomeSection />
+        <Routes>
+          <Route path="/" element={<HomeSection />}></Route>
+          <Route path="/profile/:id" element={<Profile />} />
+        </Routes>
       </Grid>
 
       {/* Right Part */}
