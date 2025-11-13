@@ -24,6 +24,7 @@ import RightPart from "../RightPart/RightPart";
 import { Route, Routes } from "react-router-dom";
 import Profile from "../Profile/Profile";
 import TweetDetails from "../TweetDetails/TweetDetails";
+import Authentication from "../Authentication/Authentication";
 
 export default function HomePage() {
   return (
@@ -41,7 +42,7 @@ export default function HomePage() {
         className=" px-5 lg:px-9 hidden lg:block relative"
       >
         <Routes>
-          <Route path="/" element={<HomeSection />}></Route>
+          <Route path="/" element={<Authentication />}></Route>
           <Route path="/home" element={<HomeSection />}></Route>
 
           <Route path="/profile/:id" element={<Profile />} />
