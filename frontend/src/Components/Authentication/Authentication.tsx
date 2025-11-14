@@ -1,7 +1,14 @@
 import { Button, Grid } from "@mui/material";
 import { GoogleLogin } from "@react-oauth/google";
+import AuthModal from "./AuthModel";
+import { useState } from "react";
 
 function Authentication() {
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+
+  const handleOpenAuthModal = () => setOpenAuthModal(true);
+  const handleCloseAuthModal = () => setOpenAuthModal(false);
+
   return (
     <div>
       <Grid className="overflow-y-hidden " container>
@@ -43,6 +50,7 @@ function Authentication() {
 
               <p className="py-5 text-center ">OR</p>
               <Button
+                onClick={handleOpenAuthModal}
                 fullWidth
                 sx={{ borderRadius: "29px", py: "7px" }}
                 variant="contained"
@@ -61,6 +69,7 @@ function Authentication() {
                   sx={{ borderRadius: "29px", py: "7px" }}
                   variant="outlined"
                   size="large"
+                  onClick={handleOpenAuthModal}
                 >
                   Login Account
                 </Button>
@@ -69,6 +78,7 @@ function Authentication() {
           </div>
         </Grid>
       </Grid>
+      <AuthModal open={openAuthModal} handleClose={handleCloseAuthModal} />
     </div>
   );
 }
