@@ -2,9 +2,13 @@ import { Button, Grid, TextField } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useFormik } from "formik";
 import React from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
+import { loginUser } from "../../Store/Auth/Action";
 
 export default function SigninForm() {
+  const dispatch = useDispatch();
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalis email").required("email is requies"),
     password: Yup.string().required("Password is requied"),
@@ -16,12 +20,13 @@ export default function SigninForm() {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("values", values);
+      dispatch(loginUser(values));
     },
   });
 
   return (
     <form
+      onSubmit={formik.handleSubmit}
       action="
     "
     >

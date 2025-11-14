@@ -3,9 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { store } from "../../Store/store";
+import { logout } from "../../Store/Auth/Action";
 
 export default function Navigation() {
+  const dispatch =useDispatch()
+  const {auth} = useSelector(store=>store)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -14,7 +20,9 @@ export default function Navigation() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
+    
     handleClose();
+    dispatch(logout)
   };
   const navigate = useNavigate();
   return (
@@ -65,10 +73,10 @@ export default function Navigation() {
         <div className="flex items-center space-x-3">
           <Avatar alt=" username" src="" />
           <div>
-            <span>Rohit Ghising</span>
+            <p>{auth.user?.fullName}</p>
             <br />
 
-            <span className="opacity-70 ">@codewithrohit</span>
+            <span className="opacity-70 ">@{auth.user?.fullName.split("").join("_").toLowerCase()}</span>
           </div>
 
           <Button
