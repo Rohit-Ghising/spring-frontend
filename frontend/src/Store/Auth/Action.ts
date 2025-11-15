@@ -61,6 +61,8 @@ import axios from "axios";
 import {
   FIND_USER_BY_ID_FAILURE,
   FIND_USER_BY_ID_SUCCESS,
+  FOLLOW_USER_FAILURE,
+  FOLLOW_USER_SUCCESS,
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_SUCCESS,
   LOGIN_USER_FAILURE,
@@ -132,12 +134,23 @@ export const findUserById= (userId)=>async(dispatch)=>{
 }
 export const updateUserProfile= (reqData)=>async(dispatch)=>{
   try {
-    const {data} = await api.put(`/api/users/update/`,reqData)
+    const {data} = await api.put(`/api/users/update`,reqData)
     dispatch({type:UPDATE_USER_SUCCESS,payload:data})
     
   } catch (error) {
     console.log("error")
     dispatch({type:UPDATE_USER_FAILURE,payload:error.message})
+    
+  }
+}
+export const followUserAction= (userId)=>async(dispatch)=>{
+  try {
+    const {data} = await api.put(`/api/users/${userId}/follow`)
+    dispatch({type:FOLLOW_USER_SUCCESS,payload:data})
+    
+  } catch (error) {
+    console.log("error")
+    dispatch({type:FOLLOW_USER_FAILURE,payload:error.message})
     
   }
 }
