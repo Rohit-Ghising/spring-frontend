@@ -56,17 +56,22 @@
     
 //   }
 // }
-import { API_BASE_URL } from "../../config/api";
+import { api, API_BASE_URL } from "../../config/api";
 import axios from "axios";
 import {
+  FIND_USER_BY_ID_FAILURE,
+  FIND_USER_BY_ID_SUCCESS,
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGIN_USER_SUCCESS,
   LOGOUT,
   REGISTER_USER_FAILURE,
-  REGISTER_USER_SUCCESS
+  REGISTER_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  UPDATE_USER_SUCCESS
 } from "./ActionType";
+
 
 export const loginUser = (loginData) => async (dispatch) => {
   try {
@@ -114,6 +119,31 @@ export const getUserProfile = (jwt) => async (dispatch) => {
     dispatch({ type: GET_USER_PROFILE_FAILURE, payload: error.message });
   }
 };
+export const findUserById= (userId)=>async(dispatch)=>{
+  try {
+    const {data} = await api.get(`/api/users/${userId}`)
+    dispatch({type:FIND_USER_BY_ID_SUCCESS,payload:data})
+    
+  } catch (error) {
+    console.log("error")
+    dispatch({type:FIND_USER_BY_ID_FAILURE,payload:error.message})
+    
+  }
+}
+export const updateUserProfile= (reqData)=>async(dispatch)=>{
+  try {
+    const {data} = await api.put(`/api/users/update/`,reqData)
+    dispatch({type:UPDATE_USER_SUCCESS,payload:data})
+    
+  } catch (error) {
+    console.log("error")
+    dispatch({type:UPDATE_USER_FAILURE,payload:error.message})
+    
+  }
+}
+
+
+
 
 
 export const logout = () => async (dispatch) => {
@@ -124,3 +154,6 @@ export const logout = () => async (dispatch) => {
    
 
 };
+
+
+
