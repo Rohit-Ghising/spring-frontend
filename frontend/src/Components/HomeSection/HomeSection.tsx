@@ -8,6 +8,7 @@ import TagFacesIcon from "@mui/icons-material/TagFaces";
 import TweetCard from "./TweetCard";
 import { getAllTweets } from "../../Store/Twit/Action";
 import { useDispatch, useSelector } from "react-redux";
+import { uploadToCloudinary } from "../../config/UploadToCloudinary";
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Tweet text is required"),
 });
@@ -29,9 +30,9 @@ export default function HomeSection() {
     validationSchema,
   });
 
-  const handleSelectImage = (event) => {
+  const handleSelectImage = async (event) => {
     setUploadingImage(true);
-    const imgUrl = event.target.files[0];
+    const imgUrl = await uploadToCloudinary(event.target.files[0]);
     formik.setFieldValue("image", imgUrl);
     setSelectedImage(imgUrl);
     setUploadingImage(false);
@@ -39,7 +40,7 @@ export default function HomeSection() {
 
   useEffect(() => {
     dispatch(getAllTweets());
-  }, [twit.like,twit.retwit]);
+  }, [twit.like, twit.retwit]);
   return (
     <div className="space-y-5">
       <section>
@@ -97,6 +98,10 @@ export default function HomeSection() {
                 </div>
               </div>
             </form>
+
+            <div>
+              {selectedImage && <img src={selectedImage} alt="loading" />}
+            </div>
           </div>
         </div>
       </section>

@@ -40,6 +40,7 @@ export default function ReplyModal({ open, handleClose, item }) {
   const handleDeleteTweet = () => {};
   const handleSubmit = (values) => {
     dispatch(createTweetReply(values));
+    handleClose();
     console.log("suhd", values);
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

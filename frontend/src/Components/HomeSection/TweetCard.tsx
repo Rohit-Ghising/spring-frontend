@@ -52,7 +52,7 @@ export default function TweetCard({ item }) {
 
       <div className="flex space-x-5">
         <Avatar
-          onClick={() => navigate(`profile/${6}`)}
+          onClick={() => navigate(`profile/${item?.user.id}`)}
           alt="username"
           src=""
           className="cursor-pointer"
@@ -93,7 +93,7 @@ export default function TweetCard({ item }) {
           <div className="mt-2 ">
             <div
               className="cursor-pointer"
-              onClick={() => navigate(`/tweet/${8}`)}
+              onClick={() => navigate(`/twit/${item?.id}`)}
             >
               <p className="mb-2 p-0">{item?.content}</p>
 
