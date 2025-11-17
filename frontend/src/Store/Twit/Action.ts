@@ -1,12 +1,12 @@
 import axios from "axios"
 import { api } from "../../config/api"
-import { FIND_TWEET_BY_ID_FAILURE, FIND_TWEET_BY_ID_SUCCESS, GET_ALL_TWEET_FAILURE, GET_ALL_TWEET_REQUEST, GET_USERS_TWEET_FAILURE, GET_USERS_TWEET_SUCCESS, LIKE_TWEET_FAILURE, LIKE_TWEET_SUCCESS, REPLY_TWEET_FAILURE, REPLY_TWEET_SUCCESS, RETWEET_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, TWEET_CREATE_FAILURE, TWEET_CREATE_SUCCESS, TWEET_DELETE_FAILURE, TWEET_DELETE_SUCCESS, USER_LIKE_TWEET_FAILURE, USER_LIKE_TWEET_SUCCESS } from "./ActionType"
+import { FIND_TWEET_BY_ID_FAILURE, FIND_TWEET_BY_ID_SUCCESS, GET_ALL_TWEET_FAILURE, GET_ALL_TWEET_REQUEST, GET_ALL_TWEET_SUCCESS, GET_USERS_TWEET_FAILURE, GET_USERS_TWEET_SUCCESS, LIKE_TWEET_FAILURE, LIKE_TWEET_SUCCESS, REPLY_TWEET_FAILURE, REPLY_TWEET_SUCCESS, RETWEET_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, TWEET_CREATE_FAILURE, TWEET_CREATE_SUCCESS, TWEET_DELETE_FAILURE, TWEET_DELETE_SUCCESS, USER_LIKE_TWEET_FAILURE, USER_LIKE_TWEET_SUCCESS } from "./ActionType"
 
 export const getAllTweets=()=> async(dispatch)=>{
   try {
-    const {data} = await api.get("/api/twits/")
+    const {data} = await api.get("/api/twits")
     console.log("get all tweets:",data)
-    dispatch({type:GET_ALL_TWEET_REQUEST,payload:data})
+    dispatch({type:GET_ALL_TWEET_SUCCESS,payload:data})
   } catch (error) {
     dispatch({type:GET_ALL_TWEET_FAILURE,payload:error.message})
     
@@ -28,7 +28,7 @@ export const getUsersTweets=()=> async(dispatch)=>{
 
 export const findTwitsByLikeContainUser=()=> async(dispatch)=>{
   try {
-    const {data} = await api.get(`/api/twits/users/${userId}/likes`)
+    const {data} = await api.get(`/api/twits/users/${userId}/like`)
     console.log("get all tweets:",data)
     dispatch({type:USER_LIKE_TWEET_SUCCESS,payload:data})
   } catch (error) {
@@ -64,7 +64,7 @@ export const createTweet=(tweetData)=> async(dispatch)=>{
 
 export const createTweetReply=(tweetData)=> async(dispatch)=>{
   try {
-    const {data} = await api.post(`/api/twits/reply`,tweetData)
+    const {data} = await api.put(`/api/twits/reply`,tweetData)
     console.log("get all tweets:",data)
     dispatch({type:REPLY_TWEET_SUCCESS,payload:data})
   } catch (error) {
@@ -77,7 +77,7 @@ export const createReTweetReply=(twitId)=> async(dispatch)=>{
   try {
     const {data} = await api.post(`/api/twits/${twitId}/retweet`,twitId)
     console.log("get all tweets:",data)
-    dispatch({type:RETWEET_REQUEST,payload:data})
+    dispatch({type:RETWEET_SUCCESS,payload:data})
   } catch (error) {
     dispatch({type:RETWEET_FAILURE,payload:error.message})
     

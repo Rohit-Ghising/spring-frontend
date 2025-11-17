@@ -13,6 +13,8 @@ import ImageIcon from "@mui/icons-material/Image";
 
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { createTweetReply } from "../../Store/Twit/Action";
 const style = {
   position: "absolute",
   top: "50%",
@@ -27,20 +29,22 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ReplyModal({ open, handleClose }) {
+export default function ReplyModal({ open, handleClose, item }) {
   const [uploadingImage, setUploadingImage] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState("");
+  const dispatch = useDispatch();
 
   const handleClick = () => setOpen(true);
 
   const navigate = useNavigate();
   const handleDeleteTweet = () => {};
   const handleSubmit = (values) => {
+    dispatch(createTweetReply(values));
     console.log("suhd", values);
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const formik = useFormik({
-    initialValues: { content: "", image: "", tweetId: 6 },
+    initialValues: { content: "", image: "", tweetId: item?.id },
     onSubmit: handleSubmit,
   });
   const handleSelectImage = (event) => {

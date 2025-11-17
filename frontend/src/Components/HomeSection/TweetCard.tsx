@@ -9,8 +9,11 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReplyModal from "./ReplyModal";
+import { useDispatch } from "react-redux";
+import { createReTweetReply, likeTweet } from "../../Store/Twit/Action";
 
-export default function TweetCard() {
+export default function TweetCard({ item }) {
+  const dispatch = useDispatch();
   const [openReplyModal, setOpenReplyModal] = useState(false);
   const handleOpenReplyModel = () => setOpenReplyModal(true);
   const handleCloseReplyModal = () => setOpenReplyModal(false);
@@ -29,6 +32,7 @@ export default function TweetCard() {
     console.log("tweetseleted");
   };
   const handleCreateRetweet = () => {
+    dispatch(createReTweetReply(item.id));
     console.log("handle create retweet");
   };
   const handleReplyModel = () => {
@@ -36,6 +40,7 @@ export default function TweetCard() {
   };
   const navigate = useNavigate();
   const handleLiketweet = () => {
+    dispatch(likeTweet(item.id));
     console.log("liked");
   };
   return (
@@ -55,8 +60,8 @@ export default function TweetCard() {
         <div className="w-full ">
           <div className="flex justify-between items-center ">
             <div className="flex cursor-pointer items-center space-x-2 ">
-              <span className="font-semibold "> Code with rohit</span>
-              <span className="text-gray-600 ">@hjdbc jcn . 2m</span>
+              <span className="font-semibold "> {item?.user?.fullName}</span>
+              <span className="text-gray-600 ">@{item?.user?.fullName}</span>
               <img className="ml-2 w-5 h-5" src="" alt="" />
             </div>
             <div>
@@ -90,9 +95,10 @@ export default function TweetCard() {
               className="cursor-pointer"
               onClick={() => navigate(`/tweet/${8}`)}
             >
-              <p className="mb-2 p-0">Nice image</p>
+              <p className="mb-2 p-0">{item?.content}</p>
+
               <img
-                src="https://images.unsplash.com/photo-1761839262867-af53d08b0eb5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8&auto=format&fit=crop&q=60&w=600"
+                src={item?.image}
                 className="w-[28rem] border border-gray-400 p-5 rounded-md"
                 alt=""
               />
@@ -106,22 +112,22 @@ export default function TweetCard() {
                 <p>43</p>
                 <div
                   className={`${
-                    true ? "text-pink-600 " : "text-gray-600"
+                    item.retwit ? "text-pink-600 " : "text-gray-600"
                   } space-x-3 flex items-center `}
                 >
                   <RepeatIcon
                     className="cursor-pointer"
                     onClick={handleCreateRetweet}
                   />
-                  <p>54</p>
+                  <p>{item?.totalRetweets}</p>
                 </div>
                 {/*  */}
                 <div
                   className={`${
-                    true ? "text-pink-600 " : "text-gray-600"
+                    item?.liked ? "text-pink-600 " : "text-gray-600"
                   } space-x-3 flex items-center `}
                 >
-                  {true ? (
+                  {item?.liked ? (
                     <FavoriteIcon
                       className="cursor-pointer"
                       onClick={handleLiketweet}
@@ -132,7 +138,7 @@ export default function TweetCard() {
                       onClick={handleLiketweet}
                     />
                   )}
-                  <p>54</p>
+                  <p>{item?.totalLikes}</p>
                 </div>
                 <div className="space-x-3 flex items-center text-gray-600">
                   <BarChartIcon
@@ -153,7 +159,11 @@ export default function TweetCard() {
         </div>
       </div>
       <section>
-        <ReplyModal open={openReplyModal} handleClose={handleCloseReplyModal} />
+        <ReplyModal
+          item={item}
+          open={openReplyModal}
+          handleClose={handleCloseReplyModal}
+        />
       </section>
     </>
   );

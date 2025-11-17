@@ -8,10 +8,10 @@ import { store } from "../../Store/store";
 import { logout } from "../../Store/Auth/Action";
 
 export default function Navigation() {
-  const dispatch =useDispatch()
-  const {auth} = useSelector(store=>store)
+  const dispatch = useDispatch();
+  const { auth } = useSelector((store) => store);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -20,9 +20,8 @@ export default function Navigation() {
     setAnchorEl(null);
   };
   const handleLogout = () => {
-    
     handleClose();
-    dispatch(logout)
+    dispatch(logout);
   };
   const navigate = useNavigate();
   return (
@@ -76,7 +75,12 @@ export default function Navigation() {
             <p>{auth.user?.fullName}</p>
             <br />
 
-            <span className="opacity-70 ">@{auth.user?.fullName.split("").join("_").toLowerCase()}</span>
+            <span className="opacity-70 ">
+              {/* @{auth.user?.fullName.split("").join("_").toLowerCase()} */}@
+              {auth.user?.fullName
+                ? auth.user.fullName.split("").join("_").toLowerCase()
+                : ""}
+            </span>
           </div>
 
           <Button

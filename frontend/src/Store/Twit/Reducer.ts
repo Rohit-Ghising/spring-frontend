@@ -7,7 +7,7 @@ import { FIND_TWEET_BY_ID_FAILURE, FIND_TWEET_BY_ID_REQUEST, FIND_TWEET_BY_ID_SU
   twits:[],
   twit:null
  }
-const tweetReducer =(state=initialState,action)=>{
+export const twitReducer =(state=initialState,action)=>{
   switch (action.type) {
     case TWEET_CREATE_REQUEST:
       case TWEET_DELETE_REQUEST:

@@ -3,14 +3,18 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ImageIcon from "@mui/icons-material/Image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import TweetCard from "./TweetCard";
+import { getAllTweets } from "../../Store/Twit/Action";
+import { useDispatch, useSelector } from "react-redux";
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Tweet text is required"),
 });
 
 export default function HomeSection() {
+  const dispatch = useDispatch();
+  const { twit } = useSelector((store) => store);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const handleSubmit = (values) => {
@@ -32,6 +36,10 @@ export default function HomeSection() {
     setSelectedImage(imgUrl);
     setUploadingImage(false);
   };
+
+  useEffect(() => {
+    dispatch(getAllTweets());
+  }, [twit.like,twit.retwit]);
   return (
     <div className="space-y-5">
       <section>
@@ -93,8 +101,8 @@ export default function HomeSection() {
         </div>
       </section>
       <section>
-        {[1, 1, 1, 1, 1].map((item) => (
-          <TweetCard />
+        {twit.twits.map((item) => (
+          <TweetCard item={item} />
         ))}
       </section>
     </div>
