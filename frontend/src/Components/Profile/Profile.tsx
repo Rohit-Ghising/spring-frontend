@@ -10,12 +10,15 @@ import TabPanel from "@mui/lab/TabPanel";
 import { useState } from "react";
 import TweetCard from "../HomeSection/TweetCard";
 import ProfileModal from "./ProfileModal";
+import { useSelector } from "react-redux";
+import { store } from "../../Store/store";
 
 export default function Profile() {
   const [tabValue, setTabValue] = useState("1");
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const navigate = useNavigate();
   const handleBack = () => navigate(-1);
+  const { auth } = useSelector((store) => store);
 
   const handleFollowUser = () => {
     console.log("followed");
@@ -41,7 +44,7 @@ export default function Profile() {
         />
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">
           {" "}
-          code eiyh rohit
+          {auth.user?.fullName}
         </h1>
       </section>
       <section>
@@ -79,10 +82,12 @@ export default function Profile() {
         </div>
         <div>
           <div className="flex items-center ">
-            <h1 className="font-bold text-lg ">hen cihbch</h1>
+            <h1 className="font-bold text-lg ">{auth.user?.fullName}</h1>
             {true && <img src="" className="ml-2 w-5 h-5" alt="" />}
           </div>
-          <h1 className="text-gray-500">@bdchjbc</h1>
+          <h1 className="text-gray-500">
+            @{auth.user?.fullName.split(" ").join("_").toLowerCase()}
+          </h1>
         </div>
         <div className="mt-2 space-y-3 ">
           <p className="">

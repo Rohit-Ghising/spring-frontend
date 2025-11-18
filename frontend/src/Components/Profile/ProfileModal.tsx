@@ -6,6 +6,9 @@ import Modal from "@mui/material/Modal";
 import { useFormik } from "formik";
 import CloseIcon from "@mui/icons-material/Close";
 import { Avatar, IconButton, TextField } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { updateUserProfile } from "../../Store/Auth/Action";
+import { uploadToCloudinary } from "../../config/UploadToCloudinary";
 
 const style = {
   position: "absolute",
@@ -23,8 +26,11 @@ const style = {
 
 export default function ProfileModal({ open, handleClose }) {
   // const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
   const [uploading, setUploading] = React.useState(false);
   const handleSubmit = (values) => {
+    dispatch(updateUserProfile(values));
+
     console.log("handlesubmit", values);
   };
 
@@ -39,10 +45,10 @@ export default function ProfileModal({ open, handleClose }) {
     },
     onSubmit: handleSubmit,
   });
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     setUploading(true);
     const { name } = event.target;
-    const file = event.target.files[0];
+    const file = await uploadToCloudinary(event.target.files[0]);
     formik.setFieldValue(name, file);
     setUploading(false);
   };

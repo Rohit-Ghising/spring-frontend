@@ -6,7 +6,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import { useEffect, useState } from "react";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import TweetCard from "./TweetCard";
-import { getAllTweets } from "../../Store/Twit/Action";
+import { createTweet, getAllTweets } from "../../Store/Twit/Action";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadToCloudinary } from "../../config/UploadToCloudinary";
 const validationSchema = Yup.object().shape({
@@ -18,7 +18,10 @@ export default function HomeSection() {
   const { twit } = useSelector((store) => store);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
+    dispatch(createTweet(values));
+    actions.resetForm();
+    setSelectedImage("");
     console.log(values);
   };
   const formik = useFormik({
