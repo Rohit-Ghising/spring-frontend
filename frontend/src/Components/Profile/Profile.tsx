@@ -90,9 +90,7 @@ export default function Profile() {
           </h1>
         </div>
         <div className="mt-2 space-y-3 ">
-          <p className="">
-            Lorem ipsum, dolor sit amet consectetur adipisicing.
-          </p>
+          <p className="">{auth.user?.bio}</p>
           <div className="py-1 flex space-x-5 ">
             <div className=" flex items-center text-gray-500">
               <BusinessCenterIcon />
