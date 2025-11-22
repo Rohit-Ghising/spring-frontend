@@ -12,7 +12,8 @@ import TweetCard from "../HomeSection/TweetCard";
 import ProfileModal from "./ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../Store/store";
-import { authById } from "../../Store/auth/Action";
+import { authById, followUserAction } from "../../Store/auth/Action";
+import { getUsersTweets } from "../../Store/Twit/Action";
 
 export default function Profile() {
   const [tabValue, setTabValue] = useState("1");
@@ -21,9 +22,10 @@ export default function Profile() {
   const handleBack = () => navigate(-1);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { auth } = useSelector((store) => store);
+  const { auth, twit } = useSelector((store) => store);
 
   const handleFollowUser = () => {
+    dispatch(followUserAction(id));
     console.log("followed");
   };
   const handleTabChange = (event, newValue) => {
@@ -38,6 +40,7 @@ export default function Profile() {
   const handleClose = () => setOpenProfileModal(false);
   useEffect(() => {
     dispatch(authById(id));
+    dispatch(getUsersTweets(id));
   }, [id]);
   return (
     <div>
@@ -66,7 +69,7 @@ export default function Profile() {
             className="transform -translate-y-24"
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
           />
-          {true ? (
+          {auth.findUser?.req_user ? (
             <Button
               onClick={handleOpenProfileModel}
               className="rounded"
@@ -82,7 +85,7 @@ export default function Profile() {
               variant="contained"
               sx={{ borderRadius: "20px" }}
             >
-              {true ? "Follow" : "Unfollow"}
+              {auth.findUser.followed ? "Unfollow" : "Follow"}
             </Button>
           )}
         </div>
@@ -138,8 +141,8 @@ export default function Profile() {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {[1, 1, 1, 9].map((item) => (
-                <TweetCard />
+              {twit.twits.map((item) => (
+                <TweetCard item={item} />
               ))}
             </TabPanel>
             <TabPanel value="2">User Replies </TabPanel>
